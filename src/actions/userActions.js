@@ -11,6 +11,9 @@ import {
 } from '../constants/userConstants'
 import axios from 'axios'
 
+// https://demoappme.azurewebsites.net/api/users/login?code=eIEl-SeVBEXLKETmTlKgkiaopXkXKj6cq0zYElQHQUW0AzFuaDwtHA==
+axios.defaults.baseURL = "https://demoappme.azurewebsites.net"
+
 export const login = (email,password)=> async(dispatch) =>{
     try{
         dispatch({
@@ -19,13 +22,18 @@ export const login = (email,password)=> async(dispatch) =>{
 
         const config = {
             headers:{
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
                 'Content-type':'application/json'
             }
         }
 
         const {data} = await axios.post(
-            '/api/users/login/',
-            {'username':email,'password':password},
+            '/api/users/login?code=eIEl-SeVBEXLKETmTlKgkiaopXkXKj6cq0zYElQHQUW0AzFuaDwtHA==',
+            {
+                'email':email,
+                'password':password
+            },
             config
             )
 
@@ -63,13 +71,18 @@ export const register = (name,email,password)=> async(dispatch) =>{
 
         const config = {
             headers:{
+                "Access-Control-Allow-Origin": "*",
                 'Content-type':'application/json'
             }
         }
 
         const {data} = await axios.post(
-            '/api/users/register/',
-            {'name':name,'email':email,'password':password},
+            '/api/users/register/?code=cgDL4OM9y2lmal-P7FnkOKrdsbKouNOJmdenMlRy-DzFAzFubZzhQA==',
+            {
+                "name":name,
+                "email":email,
+                "password":password
+            },
             config
             )
 

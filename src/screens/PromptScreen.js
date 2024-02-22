@@ -32,11 +32,11 @@ const PromptRecordsPage = () => {
                 {prompts.map(prompt => (
                   <ListGroup.Item key={prompt._id}>
                     <Row>
-                      <Col xs={2}>
+                      <Col xs={3}>
                       <strong>ID:</strong> {prompt._id}
                       </Col>
                       <Col >
-                        <strong>Prompt:</strong> {prompt.data}
+                        <strong>Prompt:</strong> {prompt.prompt}
                       </Col>
                       <Col xs={4}>
                         <strong>Response:</strong> {prompt.response}

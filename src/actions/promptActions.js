@@ -9,6 +9,8 @@ import {
 } from '../constants/promptConstant'
 import axios from 'axios'
 
+// axios.defaults.baseURL = 'http://localhost:7071';
+
 export const createPrompt = (prompt) => async(dispatch, getState)=>{
     try{
         dispatch({type:SEND_PROMPT_REQUEST})
@@ -19,14 +21,18 @@ export const createPrompt = (prompt) => async(dispatch, getState)=>{
 
         const config = {
             headers:{
+                "Access-Control-Allow-Origin": "*",
                 'Content-type':'application/json',
-                Authorization:`Bearer ${userInfo.token}`
+                // Authorization:`Bearer ${userInfo.token}`
             }
         }
 
         const {data} = await axios.post(
-            `/api/prompts/send-prompt/`,
-            {'prompt':prompt},
+            `/api/prompts/send-prompt?code=T_JCvMblGTCBT0PZA0z6UyZr5PcxpKsX8Q5zjR20OKjPAzFu3WD4Mg==`,
+            {
+                "email":userInfo.email,
+                "prompt":prompt
+            },
             config,
             )
         dispatch({
@@ -53,13 +59,17 @@ export const listUserPrompts = () => async (dispatch, getState)=>{
 
         const config = {
             headers:{
+                "Access-Control-Allow-Origin": "*",
                 'Content-type':'application/json',
-                Authorization:`Bearer ${userInfo.token}`
+                // Authorization:`Bearer ${userInfo.token}`
             }
         }
         
-        const { data } = await axios.get(
-            `/api/prompts/get-records/`,
+        const { data } = await axios.post(
+            `/api/prompts/get-records?code=t6Ki7AFytub5m6J_xnjJAcFuLzeUdiIRVC3t9YT8ZBmwAzFuoJPBsQ==`,
+            {
+                "email":userInfo.email
+            },
             config,
             )
         dispatch({
